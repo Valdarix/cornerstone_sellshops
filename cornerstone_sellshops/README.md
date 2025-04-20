@@ -1,4 +1,4 @@
-# Cornerstone: Sell Shop
+# Cornerstone: Sell Shops
 
 ## Dependencies
 - Ox lib

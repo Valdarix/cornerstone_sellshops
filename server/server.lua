@@ -44,7 +44,7 @@ lib.callback.register('cornerstone_sellshop:server:sellItem', function(source, i
                 message = 'You have successfully sold ' .. currentInventoryItem.label   .. ' and were paid with ' .. totalPayout .. ' ' .. payoutItemInfo.label
                 TriggerClientEvent('cornerstone_sellshop:client:sendNotify', src, 'success', message)                
             else
-                message = 'You have could not sell ' .. currentInventoryItem.label .. ' because you could not carry the payout.'
+                message = 'You could not sell ' .. currentInventoryItem.label .. ' because you could not carry the payout.'
                 TriggerClientEvent('cornerstone_sellshop:client:sendNotify', src, 'error', message)
                 exports.ox_inventory:AddItem(src, item, numberOfItems)
             end               

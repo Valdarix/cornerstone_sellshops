@@ -20,7 +20,7 @@ Config.Shops = {
     --     location = vec4(1196.48, -1301.27, 35.16, 193.84), 
     --     items = {
     --      
-    --         {name = 'wood', amount = 50,  payoutItem = 'money'}
+    --         {name = 'weapon_assaultweapon', amount = 3,  payoutItem = 'elite_coin'}
     --     },        
         
     -- }

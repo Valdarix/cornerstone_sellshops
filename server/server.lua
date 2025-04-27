@@ -37,21 +37,17 @@ lib.callback.register('cornerstone_sellshop:server:sellItem', function(source, i
         
         if success then 
             local payoutItemInfo = exports.ox_inventory:GetItem(src, payoutItem, nil, false)
-            local canCarry = exports.ox_inventory:CanCarryItem(src, payoutItem, totalPayout, false) 
-         
+            local canCarry = exports.ox_inventory:CanCarryItem(src, payoutItem, totalPayout, false)      
+          
             if canCarry then -- do the can carry check to be safe. In cash rewards are something other than money or the money has weight. 
-                
                 exports.ox_inventory.AddItem(src, payoutItem, totalPayout)
                 message = 'You have successfully sold ' .. currentInventoryItem.label   .. ' and were paid with ' .. totalPayout .. ' ' .. payoutItemInfo.label
-                TriggerClientEvent('cornerstone_sellshop:client:sendNotify', src, 'success', message)
-                
+                TriggerClientEvent('cornerstone_sellshop:client:sendNotify', src, 'success', message)                
             else
                 message = 'You have could not sell ' .. currentInventoryItem.label .. ' because you could not carry the payout.'
                 TriggerClientEvent('cornerstone_sellshop:client:sendNotify', src, 'error', message)
                 exports.ox_inventory:AddItem(src, item, numberOfItems)
-
-            end
-
+            end               
         else
             message = 'Failed to remove ' .. currentInventoryItem.label .. ' from your inventory.'
             TriggerClientEvent('cornerstone_sellshop:client:sendNotify', src, 'error', message)

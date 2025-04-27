@@ -21,10 +21,6 @@ local function LoadModel(model)
     end
 end
 
-local function getImageFromInventory(item)
-    return exports.ox_inventory:Items(item).client.image
-end
-
 local function hasItem(item)
     local itemCount = lib.callback.await('cornerstone_sellshop:server:hasItem', false, item)
  
@@ -45,17 +41,14 @@ function OpenBuyMenu(buyer)
     local buyerItems = lib.callback.await('cornerstone_sellshop:server:getBuyerItems', false, buyer.name)
    
     local menu = {}
-    for i = 1, #buyer.items  do
+    for i = 1, #buyerItems  do
         local currentItem = buyerItems[i].name
         local itemPayoutAmount = buyerItems[i].amount
-        local itemPayoutItem = buyerItems[i].payoutItem
         menu[#menu + 1] = {                  
-            title = currentItem .. ' - $' .. itemPayoutAmount,
-            icon = getImageFromInventory(currentItem),            
-            image = getImageFromInventory(currentItem),
+            title = exports.ox_inventory:Items(currentItem).label .. ' - $' .. itemPayoutAmount,          
             disabled = not hasItem(currentItem),
             onSelect = function()
-                sellItem(currentItem, itemPayoutAmount, itemPayoutItem, buyer.name )               
+                sellItem(currentItem, buyer.name )               
             end}  
         end
 

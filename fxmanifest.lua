@@ -4,11 +4,10 @@ game 'gta5'
 author 'Cornerstone Scripts'
 name "Cornerstone Sell Shops"
 description 'A simple sell shops script for Ox Inventory'
-version '1.0.0'
+version '1.0.1'
 
 shared_scripts {
-    '@ox_lib/init.lua',
-    'config/*.lua',
+    '@ox_lib/init.lua',   
 }
 
 server_scripts {

@@ -37,24 +37,25 @@ local function hasItem(item)
     
 end
 
-local function sellItem(item, itemPayoutAmount, itemPayoutItem)
-    lib.callback.await('cornerstone_sellshop:server:sellItem', false, item, itemPayoutAmount, itemPayoutItem)
+local function sellItem(item, itemPayoutAmount, itemPayoutItem, buyerName)
+    lib.callback.await('cornerstone_sellshop:server:sellItem', false, item, itemPayoutAmount, itemPayoutItem, buyerName)
 end
 
 function OpenBuyMenu(buyer)
- 
+    local buyerItems = lib.callback.await('cornerstone_sellshop:server:getBuyerItems', false, buyer.name)
+   
     local menu = {}
     for i = 1, #buyer.items  do
-        local currentItem = buyer.items[i].name
-        local itemPayoutAmount = buyer.items[i].amount
-        local itemPayoutItem = buyer.items[i].payoutItem
+        local currentItem = buyerItems[i].name
+        local itemPayoutAmount = buyerItems[i].amount
+        local itemPayoutItem = buyerItems[i].payoutItem
         menu[#menu + 1] = {                  
             title = currentItem .. ' - $' .. itemPayoutAmount,
             icon = getImageFromInventory(currentItem),            
             image = getImageFromInventory(currentItem),
             disabled = not hasItem(currentItem),
             onSelect = function()
-                sellItem(currentItem, itemPayoutAmount, itemPayoutItem )               
+                sellItem(currentItem, itemPayoutAmount, itemPayoutItem, buyer.name )               
             end}  
         end
 

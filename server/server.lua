@@ -43,7 +43,7 @@ local function processPurchase(src, item, itemPayoutAmount, itemPayoutItem)
             local canCarry = exports.ox_inventory:CanCarryItem(src, payoutItem, totalPayout, false)      
           
             if canCarry then -- do the can carry check to be safe. In cash rewards are something other than money or the money has weight. 
-                exports.ox_inventory.AddItem(src, payoutItem, totalPayout)
+                exports.ox_inventory:AddItem(src, payoutItem, totalPayout)
                 message = 'You have successfully sold ' .. currentInventoryItem.label   .. ' and were paid with ' .. totalPayout .. ' ' .. payoutItemInfo.label
                 TriggerClientEvent('cornerstone_sellshop:client:sendNotify', src, 'success', message)                
             else

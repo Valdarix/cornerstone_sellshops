@@ -1,12 +1,12 @@
+local blip = 0
+
 local function sendNotify(notifyType, message)
     exports.qbx_core:Notify(message, notifyType, 3000)
 end
 
 RegisterNetEvent('cornerstone_sellshop:client:sendNotify')
-AddEventHandler('cornerstone_sellshop:client:sendNotify', function(notifyType, message)
-    
-    sendNotify(notifyType, message)
-    
+AddEventHandler('cornerstone_sellshop:client:sendNotify', function(notifyType, message)    
+    sendNotify(notifyType, message)    
 end)
 
 local function LoadModel(model)
@@ -70,6 +70,18 @@ for i = 1, #Config.Shops do
     SetEntityInvincible(ped, true)
     SetBlockingOfNonTemporaryEvents(ped, true)
     TaskStartScenarioInPlace(ped, 'WORLD_HUMAN_CLIPBOARD', 0, true)
+
+    if buyer.useBlip then      
+        blip = AddBlipForCoord(buyer.location.x, buyer.location.y, buyer.location.z)
+        SetBlipSprite(blip, buyer.blip.sprite)
+        SetBlipColour(blip, buyer.blip.color)
+        SetBlipScale(blip, buyer.blip.scale)
+        SetBlipAsMissionCreatorBlip(blip, true)
+        SetBlipAsShortRange(blip, true)
+        BeginTextCommandSetBlipName("STRING")
+        AddTextComponentString(buyer.blip.name)
+        EndTextCommandSetBlipName(blip)
+    end   
 
     exports.ox_target:addLocalEntity(ped, {
         label = buyer.label,

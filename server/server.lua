@@ -1,8 +1,6 @@
 
 lib.callback.register('cornerstone_sellshop:server:getBuyerItems', function(source, buyerName)
-
     return SVConfig.ShopItems[buyerName] or {}
-
 end)
 
 local function getItemCount(source, item)
@@ -16,9 +14,7 @@ local function getItemCount(source, item)
 end
 
 lib.callback.register('cornerstone_sellshop:server:hasItem', function(source, item)  
-
     return getItemCount(source, item)
-
 end)
 
 local function processPurchase(src, item, itemPayoutAmount, itemPayoutItem)    

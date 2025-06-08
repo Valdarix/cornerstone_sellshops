@@ -18,5 +18,10 @@ client_scripts {
     'client/*.lua',
 }
 
+escrow_ignore {
+    'server/*.lua',
+    'client/*.lua',
+}
+
 lua54 'yes'
 use_fxv2_oal 'yes'

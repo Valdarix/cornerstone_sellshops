@@ -70,7 +70,7 @@ for i = 1, #Config.Shops do
     SetEntityInvincible(ped, true)
     SetBlockingOfNonTemporaryEvents(ped, true)
     TaskStartScenarioInPlace(ped, 'WORLD_HUMAN_CLIPBOARD', 0, true)
-
+    SetModelAsNoLongerNeeded(GetHashKey(ped))
     if buyer.useBlip then      
         blip = AddBlipForCoord(buyer.location.x, buyer.location.y, buyer.location.z)
         SetBlipSprite(blip, buyer.blip.sprite)

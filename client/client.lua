@@ -2,7 +2,7 @@ local blips = {}
 local peds = {}
 
 local function sendNotify(notifyType, message)
-    exports.qbx_core:Notify(message, notifyType, 3000)
+    lib.Notify(message, notifyType, 3000)
 end
 
 RegisterNetEvent('cornerstone_sellshop:client:sendNotify')

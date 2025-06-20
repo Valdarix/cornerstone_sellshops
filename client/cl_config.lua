@@ -12,12 +12,12 @@ Config.Shops = {
             sprite = 108,
             color = 2,
             scale = 0.8,
-            name = 'Scarp Buyer',
+            name = 'Scrap Buyer',
         },
     },
     -- [2] = {        
     --     name = 'elite_coin_buyer',
-    --     label = 'Supicious Gangster',
+    --     label = 'Suspicious Gangster',
     --     pedModel = 'a_m_y_smartcaspat_01',
     --     location = vec4(1196.48, -1301.27, 35.16, 193.84), --                 
     -- }

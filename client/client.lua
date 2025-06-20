@@ -1,4 +1,5 @@
-local blip = 0
+local blips = {}
+local peds = {}
 
 local function sendNotify(notifyType, message)
     exports.qbx_core:Notify(message, notifyType, 3000)
@@ -74,8 +75,9 @@ for i = 1, #Config.Shops do
     TaskStartScenarioInPlace(ped, 'WORLD_HUMAN_CLIPBOARD', 0, true)
     -- release the model once the ped has been created
     SetModelAsNoLongerNeeded(GetHashKey(buyer.pedModel))
+    peds[#peds + 1] = ped
     if buyer.useBlip then      
-        blip = AddBlipForCoord(buyer.location.x, buyer.location.y, buyer.location.z)
+        local blip = AddBlipForCoord(buyer.location.x, buyer.location.y, buyer.location.z)
         SetBlipSprite(blip, buyer.blip.sprite)
         SetBlipColour(blip, buyer.blip.color)
         SetBlipScale(blip, buyer.blip.scale)
@@ -84,6 +86,7 @@ for i = 1, #Config.Shops do
         BeginTextCommandSetBlipName("STRING")
         AddTextComponentString(buyer.blip.name)
         EndTextCommandSetBlipName(blip)
+        blips[#blips + 1] = blip
     end   
 
     exports.ox_target:addLocalEntity(ped, {
@@ -98,3 +101,19 @@ for i = 1, #Config.Shops do
         
     })
 end
+
+AddEventHandler('onResourceStop', function(resource)
+    if resource ~= GetCurrentResourceName() then return end
+
+    for _, ped in ipairs(peds) do
+        if DoesEntityExist(ped) then
+            DeleteEntity(ped)
+        end
+    end
+
+    for _, blip in ipairs(blips) do
+        if DoesBlipExist(blip) then
+            RemoveBlip(blip)
+        end
+    end
+end)

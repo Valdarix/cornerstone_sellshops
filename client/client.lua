@@ -33,8 +33,10 @@ local function hasItem(item)
     
 end
 
-local function sellItem(item, itemPayoutAmount, itemPayoutItem, buyerName)
-    lib.callback.await('cornerstone_sellshop:server:sellItem', false, item, itemPayoutAmount, itemPayoutItem, buyerName)
+local function sellItem(item, buyerName)
+    -- only send the item being sold and the buyer identifier to the server
+    -- payout information is retrieved server side
+    lib.callback.await('cornerstone_sellshop:server:sellItem', false, item, buyerName)
 end
 
 function OpenBuyMenu(buyer)
@@ -70,7 +72,8 @@ for i = 1, #Config.Shops do
     SetEntityInvincible(ped, true)
     SetBlockingOfNonTemporaryEvents(ped, true)
     TaskStartScenarioInPlace(ped, 'WORLD_HUMAN_CLIPBOARD', 0, true)
-    SetModelAsNoLongerNeeded(GetHashKey(ped))
+    -- release the model once the ped has been created
+    SetModelAsNoLongerNeeded(GetHashKey(buyer.pedModel))
     if buyer.useBlip then      
         blip = AddBlipForCoord(buyer.location.x, buyer.location.y, buyer.location.z)
         SetBlipSprite(blip, buyer.blip.sprite)

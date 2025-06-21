@@ -1,0 +1,28 @@
+name: Bump version on push
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  bump:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/setup-python@v4
+        with:
+          python-version: '3.x'
+      - name: Bump version
+        id: bump
+        run: python scripts/bump_version.py
+      - name: Commit version
+        run: |
+          git config user.name "github-actions"
+          git config user.email "github-actions@github.com"
+          git add fxmanifest.lua
+          if git diff --cached --quiet; then
+            echo "No changes to commit"
+            exit 0
+          fi
+          git commit -m "chore: bump version to ${{ steps.bump.outputs.version }} [skip ci]"
+          git push
